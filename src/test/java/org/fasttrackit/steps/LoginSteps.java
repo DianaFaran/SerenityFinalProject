@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import org.fasttrackit.pages.AccountPage;
 import org.fasttrackit.pages.HomePage;
 import org.fasttrackit.pages.LoginPage;
+import org.fasttrackit.utils.Constants;
 import org.junit.Assert;
 
 public class LoginSteps {
@@ -13,39 +14,44 @@ public class LoginSteps {
     private AccountPage accountPage;
 
     @Step
-    public void navigateToLogin(){
+    public void goToLoginPage(){
         homePage.open();
-        homePage.clickAccountLink();
-        homePage.clickLogInLink();
+        homePage.clickMyAccountLink();
     }
-
     @Step
-    public void enterCredentials(String email, String password){
-        loginPage.setEmailField(email);
-        loginPage.setPasswordField(password);
+    public void enterLoginCredentials(String email, String password){
+        loginPage.enterEmail(email);
+        loginPage.enterPassword(password);
     }
-
     @Step
-    public void clickLogIn(){
+    public void clickLoginButton(){
         loginPage.clickLoginButton();
+    }
+    @Step
+    public void doLogin(){
+        homePage.open();
+        homePage.clickMyAccountLink();
+        loginPage.enterEmail(Constants.USER_EMAIL);
+        loginPage.enterPassword(Constants.USER_PASSWORD);
+        loginPage.clickLoginButton();
+        accountPage.verifyWelcomeMessage(accountPage.getWelcomeMessageText());
+    }
+
+    @Step
+    public void doLogOut(){
+        homePage.clickMyAccountLink();
+        accountPage.clickLogout();
+    }
+    @Step
+    public void checkInvalidEmailMessage(String message){
+        Assert.assertEquals(message,accountPage.getErrorMessage());
     }
 
     @Step
     public void checkUserIsLoggedIn(String message){
-        accountPage.verifyWelcomeMessage(message);
-        Assert.assertTrue(accountPage.isWelcomeTextDisplayed(message));
-        Assert.assertEquals(message.toLowerCase(),accountPage.getWelcomeText().toLowerCase());
-    }
-
-    @Step
-    public void doLogin(String email, String pass){
-        navigateToLogin();
-        enterCredentials(email,pass);
-        clickLogIn();
-    }
-
-    @Step
-    public void checkNotLoggedIn(){
-        loginPage.checkInvalidCredentialsMessage();
+        accountPage.verifyWelcomeMessage(accountPage.getWelcomeMessageText());
+        Assert.assertTrue(accountPage.isWelcomeMessageDisplayed(message));
+        String expected = message+accountPage.getRandomEmailText()+" (not "+accountPage.getRandomEmailText()+"? "+accountPage.getLogOutLinkText()+")";
+        Assert.assertEquals(expected,accountPage.getWelcomeMessageText());
     }
 }

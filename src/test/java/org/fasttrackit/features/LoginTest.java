@@ -1,4 +1,5 @@
 package org.fasttrackit.features;
+
 import net.thucydides.core.annotations.Steps;
 import org.fasttrackit.steps.LoginSteps;
 import org.fasttrackit.utils.BaseTest;
@@ -6,25 +7,35 @@ import org.fasttrackit.utils.Constants;
 import org.junit.Test;
 
 public class LoginTest extends BaseTest {
-
     @Steps
     private LoginSteps loginSteps;
 
     @Test
     public void loginWithValidCredentials(){
-        loginSteps.navigateToLogin();
-        loginSteps.enterCredentials(Constants.USER_EMAIL, Constants.USER_PASSWORD);
-        loginSteps.clickLogIn();
-        loginSteps.checkUserIsLoggedIn("Hello, Ginny Rose!");
+        loginSteps.goToLoginPage();
+        loginSteps.enterLoginCredentials(Constants.USER_EMAIL,Constants.USER_PASSWORD);
+        loginSteps.clickLoginButton();
+        loginSteps.checkUserIsLoggedIn("Hello ");
     }
-
     @Test
-    public void loginWithInvalidCredentials(){
-        loginSteps.navigateToLogin();
-        loginSteps.enterCredentials(Constants.USER_EMAIL, "11111111");
-        loginSteps.clickLogIn();
-        loginSteps.checkNotLoggedIn();
+    public void checkUserAlreadyLoggedIn(){
+        loginSteps.doLogin();
+        loginSteps.goToLoginPage();
+        loginSteps.checkUserIsLoggedIn("Hello ");
+
     }
-
-
+    @Test
+    public void attemptLoginWithInvalidEmail(){
+        loginSteps.goToLoginPage();
+        loginSteps.enterLoginCredentials("ginnyyahoo.com",Constants.USER_PASSWORD);
+        loginSteps.clickLoginButton();
+        loginSteps.checkInvalidEmailMessage("ERROR: Invalid username. Lost your password?");
+    }
+    @Test
+    public void attemptLoginWithInvalidPassword(){
+        loginSteps.goToLoginPage();
+        loginSteps.enterLoginCredentials(Constants.USER_EMAIL, "123bn");
+        loginSteps.clickLoginButton();
+        loginSteps.checkInvalidEmailMessage("ERROR: The password you entered for the email address ginny@yahoo.com is incorrect. Lost your password?");
+    }
 }

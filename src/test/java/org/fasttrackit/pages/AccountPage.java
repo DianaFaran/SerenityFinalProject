@@ -1,31 +1,55 @@
 package org.fasttrackit.pages;
-
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.DefaultUrl;
 
-
+@DefaultUrl("http://qa1.fasttrackit.org:8008/my-account/")
 public class AccountPage extends PageObject {
 
-    @FindBy(css = ".success-msg span")
-    private WebElementFacade welcomeMessageParagraph;
+    @FindBy(css = ".woocommerce p:first-child")
+    private WebElementFacade welcomeMessage;
 
-    @FindBy(css = ".error-msg span")
+    @FindBy(css = ".woocommerce p strong")
+    private WebElementFacade randomUser;
+
+    @FindBy(css = ".woocommerce p:first-child a")
+    private WebElementFacade logoutLink;
+
+    @FindBy(css = ".woocommerce-error li")
     private WebElementFacade errorMessage;
 
-    public void verifyErrorMessage(String message){
-        errorMessage.shouldContainText(message);
+    @FindBy(css = ".woocommerce-MyAccount-navigation-link--orders a")
+    private WebElementFacade ordersLink;
+
+    public String getErrorMessage(){
+        return errorMessage.getText();
+    }
+
+    public void clickLogout(){
+        clickOn(logoutLink);
+    }
+    public void clickOrdersLink(){
+        clickOn(ordersLink);
     }
 
     public void verifyWelcomeMessage(String message){
-        welcomeMessageParagraph.shouldContainText(message);
+        waitFor(".woocommerce p strong:first-child");
+        welcomeMessage.containsText(message + randomUser.getText());
+    }
+    public boolean isWelcomeMessageDisplayed(String message){
+        waitFor(welcomeMessage);
+        return welcomeMessage.containsText(message + randomUser.getText());
+    }
+    public String getLogOutLinkText(){
+        return logoutLink.getText();
+    }
+    public String getRandomEmailText(){
+        return randomUser.getText();
+    }
+    public String getWelcomeMessageText(){
+        return welcomeMessage.getText();
     }
 
-    public boolean isWelcomeTextDisplayed(String text){
-        return welcomeMessageParagraph.containsOnlyText(text);
-    }
 
-    public String getWelcomeText(){
-        return welcomeMessageParagraph.getText();
-    }
 }

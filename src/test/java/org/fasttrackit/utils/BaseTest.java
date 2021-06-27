@@ -13,7 +13,5 @@ public class BaseTest {
 
     @Before
     public void maximize(){
-        driver.manage().window().maximize();
-    }
+        driver.manage().window().maximize();}
 }
-

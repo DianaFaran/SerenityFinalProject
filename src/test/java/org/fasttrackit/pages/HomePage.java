@@ -5,35 +5,34 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
 
-@DefaultUrl("http://testfasttrackit.info/selenium-test/")
+@DefaultUrl("http://qa1.fasttrackit.org:8008/")
 public class HomePage extends PageObject {
 
-    @FindBy(css = ".skip-account .label")
-    private WebElementFacade accountLink;
+    @FindBy(css = "#menu-item-58 a")
+    private WebElementFacade myAccountLink;
 
-    @FindBy(css = "[title='Log In']")
-    private WebElementFacade logInLink;
-
-    @FindBy(css = ".skip-cart .label")
+    @FindBy(css = "#menu-item-59 a")
     private WebElementFacade cartLink;
 
-    @FindBy(css = ".nav-5")
-    private WebElementFacade saleLink;
+    @FindBy(css = "#menu-item-60 a")
+    private WebElementFacade shopLink;
 
-    @FindBy(css = ".nav-6")
-    private WebElementFacade vipLink;
+    @FindBy(css = "#menu-item-61 a")
+    private WebElementFacade checkoutLink;
+
+    public void clickCheckoutLink(){
+        clickOn(checkoutLink);
+    }
+
+    public void clickShopLink(){
+        clickOn(shopLink);
+    }
 
     public void clickCartLink(){
         clickOn(cartLink);
     }
-    public void clickVipLink(){ clickOn(vipLink);}
-    public void clickSaleLink(){
-        clickOn(saleLink);
-    }
-    public void clickAccountLink(){
-        clickOn(accountLink);
-    }
-    public void clickLogInLink(){
-        clickOn(logInLink);
+
+    public void clickMyAccountLink(){
+        clickOn(myAccountLink);
     }
 }

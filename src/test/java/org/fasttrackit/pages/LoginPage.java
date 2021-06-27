@@ -4,35 +4,23 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-
 public class LoginPage extends PageObject {
+    @FindBy(css = "#username")
+    private WebElementFacade logEmailField;
 
-    @FindBy(id = "email")
-    private WebElementFacade emailField;
+    @FindBy(css = "#password")
+    private WebElementFacade logPasswordField;
 
-    @FindBy(id = "pass")
-    private WebElementFacade passwordField;
-
-    @FindBy(id = "send2")
+    @FindBy(css = "[value='Login']")
     private WebElementFacade loginButton;
 
-    @FindBy(css = ".error-msg span")
-    private WebElementFacade errorMessageSpan;
-
-    public void setEmailField(String email){
-        typeInto(emailField, email);
+    public void enterEmail(String email){
+        typeInto(logEmailField,email);
     }
-
-    public void setPasswordField(String password){
-        typeInto(passwordField, password);
+    public void enterPassword(String password){
+        typeInto(logPasswordField,password);
     }
-
     public void clickLoginButton(){
         clickOn(loginButton);
     }
-
-    public void checkInvalidCredentialsMessage(){
-        errorMessageSpan.shouldContainOnlyText("Invalid login or password.");
-    }
-
 }

@@ -1,46 +1,94 @@
 package org.fasttrackit.pages;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.DefaultUrl;
+import org.openqa.selenium.By;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@DefaultUrl("http://qa1.fasttrackit.org:8008/cart/")
 public class CartPage extends PageObject {
 
-    @FindBy(css = ".success-msg span")
-    private WebElementFacade addedToCartMessage;
+    @FindBy(css = "a.remove")
+    private WebElementFacade removeButton;
 
-    @FindBy(css = ".product-cart-actions input")
-    private WebElementFacade changeQuantityInCart;
+    @FindBy(css = ".product-remove a")
+    private List<WebElementFacade> removeButtonsList;
 
-    @FindBy(css = ".btn-update[title='Update']")
-    private WebElementFacade updateQuantity;
+    @FindBy(css = ".quantity input")
+    private WebElementFacade quantityField;
 
-    @FindBy(css="#empty_cart_button span span")
-    private WebElementFacade emptyCartButton;
+    @FindBy(css = ".quantity")
+    private List<WebElementFacade> quantityItems;
+
+    @FindBy(css = "[name^='update']")
+    private WebElementFacade updateCartButton;
 
     @FindBy(css = ".cart-empty")
     private WebElementFacade emptyCartMessage;
 
-    @FindBy(css = ".cart-totals .btn-checkout span span")
-    private WebElementFacade clickCheckoutButton;
+    @FindBy(css = "[role^='alert'")
+    private WebElementFacade messageAlert;
 
-    public void clickCheckoutButton(){
-        clickOn(clickCheckoutButton);
+    @FindBy(css = ".checkout-button")
+    private WebElementFacade checkoutButton;
+
+    @FindBy(css = ".cart_item")
+    private List<WebElementFacade> cartItemsList;
+
+    public void clickCheckoutButton() {
+        clickOn(checkoutButton);
     }
-    public void checkEmptyCartMessage(String message){
-        emptyCartMessage.shouldContainText(message);
-    }
-    public void clickEmptyCartButton(){
-        clickOn(emptyCartButton);
-    }
-    public void inputNumberOfItems(String quantity){
-        changeQuantityInCart.clear();
-        typeInto(changeQuantityInCart,quantity);
-    }
-    public void updateQuantity(){
-        clickOn(updateQuantity);
-    }
-    public void checkAddedToCartMessage(String message){
-        addedToCartMessage.shouldContainText(message);
+    public void changeQuantity(String number) {
+        typeInto(quantityField, number);
     }
 
+    public void clickRemoveButton() {
+        clickOn(removeButton);
+    }
+
+    public void removeAllProducts() {
+        WebElementFacade element = find(By.cssSelector(".product-remove a"));
+        try {
+            if (null != element.getElement()) {
+                waitFor(element);
+                element.click();
+                waitABit(2000);
+                removeAllProducts();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public List<String> getCartItemsList(){
+        return findAll(".cart_item [data-title^='Product']").stream()
+                .map(WebElementFacade::getText)
+                .collect(Collectors.toList());
+    }
+    public boolean isProductInCart(String productName){
+        for(WebElementFacade list: cartItemsList){
+            if (list.findElement(By.cssSelector("[data-title^='Product'] a")).getText().equalsIgnoreCase(productName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean verifyRemovedProduct(){
+        waitFor(messageAlert);
+        return messageAlert.containsText(" removed");
+    }
+    public boolean checkUpdatedCartMessage(){
+        waitFor(messageAlert);
+        return messageAlert.containsText(" updated");
+    }
+
+    public boolean verifyCartIsEmpty() {
+        return emptyCartMessage.containsText("Your cart is currently empty.");
+    }
+    public void clickUpdateCartButton(){
+        clickOn(updateCartButton);
+    }
 }

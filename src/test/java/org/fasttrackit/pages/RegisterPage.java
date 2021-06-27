@@ -4,50 +4,40 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-
 public class RegisterPage extends PageObject {
+    @FindBy(css = "#reg_email")
+    private WebElementFacade regEmailField;
 
-    @FindBy(css = ".skip-content [title^='Register']")
-    private WebElementFacade registerLink;
+    @FindBy(css = "#reg_password")
+    private WebElementFacade regPasswordField;
 
-    @FindBy(id = "firstname")
-    private WebElementFacade firstnameField;
-
-    @FindBy(id = "lastname")
-    private WebElementFacade lastnameField;
-
-    @FindBy(id = "email_address")
-    private WebElementFacade emailField;
-
-    @FindBy(id = "password")
-    private WebElementFacade passwordField;
-
-    @FindBy(id = "confirmation")
-    private WebElementFacade confirmPasswordField;
-
-    @FindBy(css = ".button[title^=Register]")
+    @FindBy(css = "[value='Register']")
     private WebElementFacade registerButton;
+
+    @FindBy(css = ".woocommerce-password-hint")
+    private WebElementFacade passwordHint;
+
+    @FindBy(css = ".woocommerce-Button:last-child")
+    private WebElementFacade disabledRegisterButton;
+
+
+    public boolean isPasswordHintDisplayed(String message){
+        return passwordHint.containsText(message);
+    }
+
+    public void getPasswordHint(){
+        passwordHint.getText();
+    }
 
     public void clickRegisterButton(){
         clickOn(registerButton);
     }
-    public void setConfirmPasswordField(String password){
-        typeInto(confirmPasswordField,password);
+
+    public void enterPassword(String password) {
+        typeInto(regPasswordField, password);
     }
-    public void setPasswordField(String password){
-        typeInto(passwordField, password);
-    }
-    public void setEmailField(String email){
-        typeInto(emailField,email);
-    }
-    public void setFirstnameField(String firstname) {
-        typeInto(firstnameField, firstname);
-    }
-    public void setLastnameField(String lastname) {
-        typeInto(lastnameField, lastname);
-    }
-    public void clickRegisterLink() {
-        clickOn(registerLink);
+    public void enterEmail(String email) {
+        typeInto(regEmailField, email);
     }
 
 }

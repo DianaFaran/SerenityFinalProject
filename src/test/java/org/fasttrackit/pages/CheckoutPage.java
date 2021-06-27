@@ -1,117 +1,89 @@
 package org.fasttrackit.pages;
+
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
+import org.fasttrackit.utils.Constants;
 
 public class CheckoutPage extends PageObject {
-    @FindBy(css = ".input-box #login-email")
-    private WebElementFacade emailField;
+    @FindBy(css = "#billing_first_name")
+    private WebElementFacade firstNameField;
 
-    @FindBy(css = ".input-box #login-password")
-    private WebElementFacade passwordField;
+    @FindBy(css = "#billing_last_name")
+    private WebElementFacade lastNameField;
 
-    @FindBy(css = ".buttons-set [onclick^=one] span")
-    private WebElementFacade loginButton;
+    @FindBy(css = "#select2-billing_country-container")
+    private WebElementFacade countryDropDownList;
 
-    @FindBy(css = ".step-title h2")
-    private WebElementFacade checkoutPage;
+    @FindBy(css = ".input-text[name^='billing_address_1']")
+    private WebElementFacade billingStreetNameField;
 
-    @FindBy(id = "billing:firstname")
-    private WebElementFacade billingFirstnameField;
+    @FindBy(css = ".input-text[name^='billing_address_2']")
+    private WebElementFacade billingStreetNumberField;
 
-    @FindBy(id = "billing:lastname")
-    private WebElementFacade billingLastnameField;
-
-    @FindBy(id = "billing:street1")
-    private WebElementFacade billingAddressField;
-
-    @FindBy(id = "billing:city")
+    @FindBy(id = "billing_city")
     private WebElementFacade billingCityField;
 
-    @FindBy(id ="billing:region_id")
-    private WebElementFacade billingRegion;
+    @FindBy(id = "billing_postcode")
+    private WebElementFacade billingPostcodeField;
 
-    @FindBy(id = "billing:postcode")
-    private WebElementFacade billingZipcode;
+    @FindBy(id = "billing_phone")
+    private WebElementFacade billingPhoneField;
 
-    @FindBy(id = "billing:country_id")
-    private WebElementFacade billingCountry;
+    @FindBy(id = "billing_email")
+    private WebElementFacade billingEmailField;
 
-    @FindBy(id = "billing:telephone")
-    private WebElementFacade billingTelephone;
-
-    @FindBy(css = "[id^='billing-buttons-container'] [title^='Continue']")
-    private WebElementFacade continueButton;
-
-    @FindBy(id = "s_method_freeshipping_freeshipping")
-    private WebElementFacade shippingRadioButton;
-
-    @FindBy(css = "[onclick^=shippingMethod.save()]")
-    private WebElementFacade continueToPaymentButton;
-
-    @FindBy(css = "[onclick^=payment.save()]")
-    private WebElementFacade continueToOrderReview;
-
-    @FindBy(css = "[onclick^=review.save()]")
+    @FindBy(id = "place_order")
     private WebElementFacade placeOrderButton;
+
 
     public void clickPlaceOrderButton(){
         clickOn(placeOrderButton);
     }
-    public void clickContinueToOrderReviewButton(){
-        clickOn(continueToOrderReview);
-    }
-    public void clickContinueToPayment(){
-        clickOn(continueToPaymentButton);
-    }
-
-    public void selectFreeShippingButton(){
-        clickOn(shippingRadioButton);
-    }
-
-    public void clickContinueButton(){
-        clickOn(continueButton);
+    public void enterBillingInformation(){
+        enterBillingFirstName(Constants.FIRST_NAME);
+        enterBillingLastName(Constants.LAST_NAME);
+        enterBillingStreetName(Constants.STREET_NAME);
+        enterBillingStreetNumber(Constants.STREET_NUMBER);
+        enterBillingCity(Constants.CITY);
+        enterBillingPostcodeField(Constants.POSTCODE);
+        enterBillingPhone(Constants.PHONE);
+        enterBillingEmail(Constants.USER_EMAIL);
     }
 
-    public void setBillingTelephone(String telephone){
-        typeInto(billingTelephone,telephone);
+    public void enterBillingEmail(String billingEmail){
+        typeInto(billingEmailField,billingEmail);
     }
 
-    public void setBillingZipcode(String zipcode){
-        typeInto(billingZipcode,zipcode);
-    }
-    public void setBillingCountry(){
-        selectFromDropdown(billingCountry,"Statele Unite ale Americii");
-    }
-    public void setBillingRegion(){
-        selectFromDropdown(billingRegion,"Florida");
-    }
-    public void setBillingCityField(String city){
-        typeInto(billingCityField,city);
-    }
-    public void setBillingAddressField(String address){
-        typeInto(billingAddressField,address);
-
-    }public void setBillingLastnameField(String lastname){
-       typeInto(billingLastnameField,lastname);
+    public void enterBillingPhone(String billingPhone){
+        typeInto(billingPhoneField,billingPhone);
     }
 
-    public void setBillingFirstnameField(String firstname){
-        typeInto(billingFirstnameField,firstname);
-    }
-    public void checkoutPageConfirmation(String message){
-        checkoutPage.shouldContainText(message);
+    public void enterBillingPostcodeField(String billingPostcode){
+        typeInto(billingPostcodeField,billingPostcode);
     }
 
-    public void clickLoginButton(){
-        clickOn(loginButton);
+    public void enterBillingCity(String billingCity){
+        typeInto(billingCityField,billingCity);
     }
 
-    public void inputPassword(String password){
-        typeInto(passwordField,password);
+    public void enterBillingStreetNumber(String streetNumber){
+        typeInto(billingStreetNumberField,streetNumber);
     }
-    public void inputEmail(String email){
-        typeInto(emailField,email);
 
+    public void enterBillingStreetName(String streetName){
+        typeInto(billingStreetNameField,streetName);
+    }
+
+    public void selectCountry(){
+        countryDropDownList.selectByVisibleText("Romania").click();
+    }
+
+    public void enterBillingLastName(String lastName){
+        typeInto(lastNameField,lastName);
+    }
+
+    public void enterBillingFirstName(String firstName){
+        typeInto(firstNameField,firstName);
     }
 }

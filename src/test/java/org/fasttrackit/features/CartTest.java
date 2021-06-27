@@ -1,51 +1,88 @@
 package org.fasttrackit.features;
-import net.thucydides.core.annotations.Step;
+
 import net.thucydides.core.annotations.Steps;
-import org.fasttrackit.pages.HomePage;
 import org.fasttrackit.steps.CartSteps;
 import org.fasttrackit.steps.LoginSteps;
+import org.fasttrackit.steps.SearchSteps;
+import org.fasttrackit.steps.ShopSteps;
 import org.fasttrackit.utils.BaseTest;
-import org.fasttrackit.utils.Constants;
 import org.junit.Test;
 
-
 public class CartTest extends BaseTest {
-
     @Steps
     private CartSteps cartSteps;
     @Steps
     private LoginSteps loginSteps;
+    @Steps
+    private SearchSteps searchSteps;
+    @Steps
+    private ShopSteps shopSteps;
+
 
     @Test
-    public void addToCartWithLoggedAccount(){
-        loginSteps.doLogin(Constants.USER_EMAIL,Constants.USER_PASSWORD);
-        cartSteps.navigateToProductPage();
-        cartSteps.addProductToCart();
+    public void addProductToCartFromShop() {
+        shopSteps.addProductToCart();
+        shopSteps.checkProductIsAdded();
+    }
+    @Test
+    public void addProductToCartByKeyword(){
+        cartSteps.addSpecificProductToCart("Beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
     }
 
     @Test
-    public void addItemToCartWithoutLogin(){
-        cartSteps.navigateToProductPage();
-        cartSteps.addProductToCart();
-        cartSteps.checkItemAddedToCart();
+    public void addProductToCartWithLogin(){
+        loginSteps.doLogin();
+        cartSteps.addSpecificProductToCart("beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie");
+        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
+    }
+    @Test
+    public void addMultipleProductsToCart(){
+        cartSteps.addSpecificProductToCart("beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie");
+        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie with zipper");
+        cartSteps.checkProductIsAdded("“Hoodie with Zipper” has been added to your cart.");
     }
 
     @Test
-    public void changeNumberOfItemsInCart(){
-        cartSteps.addProductToCart();
-        cartSteps.changeItemQuantity("3");
+    public void checkItemsAreSavedInUserCart(){
+        loginSteps.doLogin();
+        cartSteps.addSpecificProductToCart("beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie");
+        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie with zipper");
+        cartSteps.checkProductIsAdded("“Hoodie with Zipper” has been added to your cart.");
+        loginSteps.doLogOut();
+        loginSteps.doLogin();
+        cartSteps.viewCartDetails();
+        cartSteps.checkProductIsInCart("Hoodie with Pocket");
     }
 
     @Test
-    public void removeAllItemsFromCart(){
-        cartSteps.addProductToCart();
+    public void removeItemFromCart(){
+        addMultipleProductsToCart();
+        cartSteps.viewCartDetails();
+        cartSteps.removeProductFromCart();
+    }
+
+    @Test
+    public void emptyUserCart(){
+        loginSteps.doLogin();
+        shopSteps.addProductToCart();
+        cartSteps.viewCartDetails();
         cartSteps.emptyCart();
+        cartSteps.checkCartIsEmpty();
     }
-//    @Test
-//    public void emptyCartForLoggedUser(){
-//        loginSteps.doLogin(Constants.USER_EMAIL,Constants.USER_PASSWORD);
-//        homePage.clickCartLink();
-//        cartSteps.emptyCart();
-//    }
 
+    @Test
+    public void changeItemQuantity(){
+        shopSteps.addProductToCart();
+        cartSteps.viewCartDetails();
+        cartSteps.changeQuantity("3");
+    }
 }
