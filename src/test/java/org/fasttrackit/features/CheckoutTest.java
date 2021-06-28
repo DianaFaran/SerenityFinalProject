@@ -5,7 +5,7 @@ import org.fasttrackit.steps.*;
 import org.fasttrackit.utils.BaseTest;
 import org.junit.Test;
 
-public class OrderTest extends BaseTest {
+public class CheckoutTest extends BaseTest {
     @Steps
     private CheckoutSteps checkoutSteps;
     @Steps
@@ -16,6 +16,13 @@ public class OrderTest extends BaseTest {
     private OrderSteps orderSteps;
     @Steps
     private AccountSteps accountSteps;
+
+    @Test
+    public void verifyCheckoutLinkOpensOrderCheckout(){
+        cartSteps.addSpecificProductToCart("hoodie with pocket");
+        checkoutSteps.goToCheckoutPage();
+        checkoutSteps.verifyCheckoutPageIsOpen();
+    }
 
     @Test
     public void placeAnOrder(){

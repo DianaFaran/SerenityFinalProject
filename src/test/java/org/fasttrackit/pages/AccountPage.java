@@ -22,6 +22,18 @@ public class AccountPage extends PageObject {
     @FindBy(css = ".woocommerce-MyAccount-navigation-link--orders a")
     private WebElementFacade ordersLink;
 
+    @FindBy(css = ".button")
+    private WebElementFacade saveAddressButton;
+
+    @FindBy(css = ".woocommerce-MyAccount-navigation-link--edit-address a")
+    private WebElementFacade addressesLink;
+
+    @FindBy(css=".col-1 .edit")
+    private WebElementFacade editBillingAddressLink;
+
+    @FindBy(css=".col-2 .edit")
+    private WebElementFacade editShippingAddressLink;
+
     public String getErrorMessage(){
         return errorMessage.getText();
     }
@@ -29,8 +41,20 @@ public class AccountPage extends PageObject {
     public void clickLogout(){
         clickOn(logoutLink);
     }
+    public void clickShippingAddressLink(){
+        clickOn(editShippingAddressLink);
+    }
+    public void clickBillingAddressLink(){
+        clickOn(editBillingAddressLink);
+    }
     public void clickOrdersLink(){
         clickOn(ordersLink);
+    }
+    public void clickSaveAddressButton(){
+        clickOn(saveAddressButton);
+    }
+    public void clickAddressesLink(){
+        clickOn(addressesLink);
     }
 
     public void verifyWelcomeMessage(String message){
@@ -50,6 +74,7 @@ public class AccountPage extends PageObject {
     public String getWelcomeMessageText(){
         return welcomeMessage.getText();
     }
+
 
 
 }

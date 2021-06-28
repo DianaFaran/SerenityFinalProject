@@ -13,7 +13,7 @@ public class OrderPage extends PageObject {
     private WebElementFacade placedOrderNumber;
 
     public String getOrderConfirmationMessage(){
-        waitABit(2000);
+        waitFor(orderConfirmationMessage);
         return orderConfirmationMessage.getText();
     }
 

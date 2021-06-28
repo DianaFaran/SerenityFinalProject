@@ -15,6 +15,9 @@ public class Constants {
     public static final String CITY = "Floresti";
     public static final String POSTCODE = "407280";
     public static final String PHONE = "0742112233";
+    public static final String ADMIN_USERNAME = "admin";
+    public static final String ADMIN_PASSWORD = "parola11";
+
 
 
 

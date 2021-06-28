@@ -16,12 +16,17 @@ public class SearchTest extends BaseTest {
     }
     @Test
     public void searchRandomWords(){
-        searchSteps.searchForProduct("compot");
+        searchSteps.searchForProduct("masina fructe");
+        searchSteps.checkNoResultsMessage();
+    }
+    @Test
+    public void searchRandomCharacters(){
+        searchSteps.searchForProduct("lkcjdsf7e9543itejf87e5");
         searchSteps.checkNoResultsMessage();
     }
     @Test
     public void searchVeryLongText(){
-        searchSteps.searchForProduct("uweyr9043758430fhoieu94758yfreif86554ygf8irejfme934t8u");
+        searchSteps.searchForProduct("serenity emailable summary reports for status and release up + brand logobrand logobrand logobrand logobrand logobrand logobrand logobrand logoSerenity is an Open Source project. Source code is hosted on GitHub, and the binaries are published to JCenter ");
         searchSteps.checkNoResultsMessage();
     }
 }

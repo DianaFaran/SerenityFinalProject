@@ -22,7 +22,6 @@ public class LoginTest extends BaseTest {
         loginSteps.doLogin();
         loginSteps.goToLoginPage();
         loginSteps.checkUserIsLoggedIn("Hello ");
-
     }
     @Test
     public void attemptLoginWithInvalidEmail(){

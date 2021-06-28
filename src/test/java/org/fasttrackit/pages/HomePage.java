@@ -20,6 +20,13 @@ public class HomePage extends PageObject {
     @FindBy(css = "#menu-item-61 a")
     private WebElementFacade checkoutLink;
 
+    @FindBy(css= "#meta-2 > ul > li:nth-child(2) > a")
+    private WebElementFacade adminLoginLink;
+
+    public void clickAdminLoginLink(){
+        clickOn(adminLoginLink);
+    }
+
     public void clickCheckoutLink(){
         clickOn(checkoutLink);
     }

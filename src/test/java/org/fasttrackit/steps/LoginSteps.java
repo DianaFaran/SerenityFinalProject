@@ -29,11 +29,9 @@ public class LoginSteps {
     }
     @Step
     public void doLogin(){
-        homePage.open();
-        homePage.clickMyAccountLink();
-        loginPage.enterEmail(Constants.USER_EMAIL);
-        loginPage.enterPassword(Constants.USER_PASSWORD);
-        loginPage.clickLoginButton();
+        goToLoginPage();
+        enterLoginCredentials(Constants.USER_EMAIL,Constants.USER_PASSWORD);
+        clickLoginButton();
         accountPage.verifyWelcomeMessage(accountPage.getWelcomeMessageText());
     }
 

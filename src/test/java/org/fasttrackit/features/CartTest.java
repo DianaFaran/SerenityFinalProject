@@ -84,7 +84,7 @@ public class CartTest extends BaseTest {
     @Test
     public void emptyUserCart(){
         loginSteps.doLogin();
-        shopSteps.addProductToCart();
+        shopSteps.addMultipleProductsToCart();
         cartSteps.viewCartDetails();
         cartSteps.emptyCart();
         cartSteps.checkCartIsEmpty();

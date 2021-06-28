@@ -55,7 +55,7 @@ public class CartPage extends PageObject {
             if (null != element.getElement()) {
                 waitFor(element);
                 element.click();
-                waitABit(2000);
+                waitABit(1000);
                 removeAllProducts();
             }
         }catch(Exception e){

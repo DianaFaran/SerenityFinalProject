@@ -6,6 +6,7 @@ import org.fasttrackit.pages.CheckoutPage;
 import org.fasttrackit.pages.HomePage;
 import org.fasttrackit.pages.OrderPage;
 import org.fasttrackit.utils.Constants;
+import org.junit.Assert;
 
 public class CheckoutSteps {
     private CartPage cartPage;
@@ -25,6 +26,7 @@ public class CheckoutSteps {
         checkoutPage.enterBillingPhone(Constants.PHONE);
         checkoutPage.enterBillingEmail(Constants.USER_EMAIL);
     }
+
     @Step
     public void clickPlaceOrderButton(){
         checkoutPage.clickPlaceOrderButton();
@@ -32,6 +34,13 @@ public class CheckoutSteps {
     @Step
     public void goToCheckoutPage(){
         homePage.clickCheckoutLink();
+    }
+
+    @Step
+    public void verifyCheckoutPageIsOpen(){
+        Assert.assertTrue(checkoutPage.isCheckoutPageOpen());
+        Assert.assertEquals("Checkout",checkoutPage.getCheckoutPageTitle());
+
     }
 
 

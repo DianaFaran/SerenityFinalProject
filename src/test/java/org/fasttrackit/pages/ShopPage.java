@@ -33,7 +33,7 @@ public class ShopPage extends PageObject {
     public void addMultipleProducts() {
         for(WebElementFacade element: shopItems){
             element.findElement(By.cssSelector("a.add_to_cart_button")).click();
-            waitABit(1000);
+            waitFor(element);
         }
     }
 
