@@ -1,10 +1,8 @@
 package org.fasttrackit.features;
 
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.fasttrackit.steps.*;
 import org.fasttrackit.utils.BaseTest;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class OrderTest extends BaseTest {

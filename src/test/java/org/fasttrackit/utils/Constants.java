@@ -7,7 +7,8 @@ public class Constants {
     public static final String USER_PASSWORD = "12345Violet!";
     public static final String FIRST_NAME = "Ginny";
     public static final String LAST_NAME = "Rose";
-    public static final String RANDOM_EMAIL = RandomStringUtils.randomAlphanumeric(1, 10) + "@gmail.com";
+    public static final String RANDOM_EMAIL = RandomStringUtils.randomAlphanumeric(1, 12) + "@gmail.com";
+    public static final String NEW_RANDOM_EMAIL = RandomStringUtils.randomAlphanumeric(5, 12) + "@yahoo.com";
     public static final String STREET_NAME = "Flowers";
     public static final String STREET_NUMBER = "40";
     public static final String COUNTRY = "Romania";

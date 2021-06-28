@@ -16,6 +16,7 @@ public class SearchSteps {
         homePage.open();
         searchPage.searchForProduct(productName);
     }
+
     @Step
     public void showResultsList(){
         System.out.println(searchResultsPage.getProductList());

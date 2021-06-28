@@ -14,6 +14,12 @@ public class ShopSteps {
         shopPage.clickAddToCartButton();
     }
     @Step
+    public void addMultipleProductsToCart(){
+        shopPage.open();
+        shopPage.addMultipleProducts();
+
+    }
+    @Step
     public void checkProductIsAdded(){
         Assert.assertTrue(shopPage.isAddedToCart());
     }

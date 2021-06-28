@@ -24,6 +24,7 @@ public class CartSteps {
         searchResultsPage.clickProductLink();
         productPage.clickAddToCartButton();
     }
+
     @Step
     public void addMultipleItemsByKeyword(){
         goToShopPage();

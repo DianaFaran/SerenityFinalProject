@@ -24,6 +24,20 @@ public class RegisterTest extends BaseTest {
         registerSteps.enterCredentials(Constants.RANDOM_EMAIL,"123456123456");
         registerSteps.verifyErrorMessageForWrongPassword("Hint:");
     }
+    @Test
+    public void attemptRegisterWithBlankEmailField(){
+        registerSteps.goToRegisterPage();
+        registerSteps.enterCredentials("",Constants.USER_PASSWORD);
+        registerSteps.clickRegisterButton();
+        registerSteps.checkRegisterErrorMessage("Error: Please provide a valid email address.");
+    }
+    @Test
+    public void attemptRegisterWithBlankPasswordField(){
+        registerSteps.goToRegisterPage();
+        registerSteps.enterCredentials(Constants.NEW_RANDOM_EMAIL,"");
+        registerSteps.clickRegisterButton();
+        registerSteps.checkRegisterErrorMessage("Error: Please enter an account password.");
+    }
 
     @Test
     public void checkUserIsAlreadyRegisteredMessage(){

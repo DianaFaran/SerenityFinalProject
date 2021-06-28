@@ -32,6 +32,20 @@ public class LoginTest extends BaseTest {
         loginSteps.checkInvalidEmailMessage("ERROR: Invalid username. Lost your password?");
     }
     @Test
+    public void attemptLoginWithBlankEmailField(){
+        loginSteps.goToLoginPage();
+        loginSteps.enterLoginCredentials("",Constants.USER_PASSWORD);
+        loginSteps.clickLoginButton();
+        loginSteps.checkInvalidEmailMessage("Error: Username is required.");
+    }
+    @Test
+    public void attemptLoginWithBlankPasswordField(){
+        loginSteps.goToLoginPage();
+        loginSteps.enterLoginCredentials(Constants.USER_EMAIL,"");
+        loginSteps.clickLoginButton();
+        loginSteps.checkInvalidEmailMessage("ERROR: The password field is empty.");
+    }
+    @Test
     public void attemptLoginWithInvalidPassword(){
         loginSteps.goToLoginPage();
         loginSteps.enterLoginCredentials(Constants.USER_EMAIL, "123bn");

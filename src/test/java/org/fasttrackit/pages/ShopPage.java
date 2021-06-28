@@ -11,7 +11,6 @@ import java.util.List;
 @DefaultUrl("http://qa1.fasttrackit.org:8008/shop/")
 public class ShopPage extends PageObject {
 
-
     @FindBy(css = "[title^='View cart']")
     private WebElementFacade viewCartLink;
 
@@ -24,7 +23,7 @@ public class ShopPage extends PageObject {
     @FindBy(css = ".add_to_cart_button")
     private WebElementFacade addToCartButton;
 
-    @FindBy(css = ".ajax_add_to_cart")
+    @FindBy(css = "#main li.product")
     private List<WebElementFacade> shopItems;
 
     public boolean isAddedToCart(){
@@ -33,8 +32,8 @@ public class ShopPage extends PageObject {
 
     public void addMultipleProducts() {
         for(WebElementFacade element: shopItems){
-            element.findBy(".add_to_cart_button").click();
-            waitABit(2000);
+            element.findElement(By.cssSelector("a.add_to_cart_button")).click();
+            waitABit(1000);
         }
     }
 
@@ -49,9 +48,4 @@ public class ShopPage extends PageObject {
     public void clickViewCartLink(){
         clickOn(viewCartLink);
     }
-
-
-
-
-
 }

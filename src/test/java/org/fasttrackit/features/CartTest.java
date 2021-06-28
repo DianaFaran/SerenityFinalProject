@@ -20,32 +20,42 @@ public class CartTest extends BaseTest {
 
 
     @Test
-    public void addProductToCartFromShop() {
+    public void addProductToCartFromShopPage() {
         shopSteps.addProductToCart();
         shopSteps.checkProductIsAdded();
     }
     @Test
+    public void addMultipleProductsToCartFromShopPage(){
+        shopSteps.addProductToCart();
+        shopSteps.checkProductIsAdded();
+        shopSteps.addMultipleProductsToCart();
+    }
+
+    @Test
     public void addProductToCartByKeyword(){
         cartSteps.addSpecificProductToCart("Beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
+    }
+    @Test
+    public void addMultipleProductsToCartByKeyword(){
+        cartSteps.addSpecificProductToCart("Beanie");
+        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie");
+        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
+        cartSteps.addSpecificProductToCart("hoodie with zipper");
+        cartSteps.checkProductIsAdded("“Hoodie with Zipper” has been added to your cart.");
+    }
+
+    @Test
+    public void addToCartProductsFromSearchResults(){
+        cartSteps.addSpecificProductToCart("beanie");
         cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
     }
 
     @Test
     public void addProductToCartWithLogin(){
         loginSteps.doLogin();
-        cartSteps.addSpecificProductToCart("beanie");
-        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
-        cartSteps.addSpecificProductToCart("hoodie");
-        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
-    }
-    @Test
-    public void addMultipleProductsToCart(){
-        cartSteps.addSpecificProductToCart("beanie");
-        cartSteps.checkProductIsAdded("“Beanie with Logo” has been added to your cart.");
-        cartSteps.addSpecificProductToCart("hoodie");
-        cartSteps.checkProductIsAdded("“Hoodie with Pocket” has been added to your cart.");
-        cartSteps.addSpecificProductToCart("hoodie with zipper");
-        cartSteps.checkProductIsAdded("“Hoodie with Zipper” has been added to your cart.");
+        cartSteps.addMultipleItemsByKeyword();
     }
 
     @Test
@@ -65,7 +75,8 @@ public class CartTest extends BaseTest {
 
     @Test
     public void removeItemFromCart(){
-        addMultipleProductsToCart();
+        shopSteps.addProductToCart();
+        shopSteps.checkProductIsAdded();
         cartSteps.viewCartDetails();
         cartSteps.removeProductFromCart();
     }
